@@ -13,3 +13,8 @@ def handle_missing_values(df):
     df['Embarked']=df['Embarked'].fillna(df['Embarked'].mode()[0])
     return df
 
+
+#Encoding categorical variables
+def encode_categorical_variables(df):
+    df=pd.get_dummies(df,columns=['Sex','Embarked'],drop_first=True)
+    return df

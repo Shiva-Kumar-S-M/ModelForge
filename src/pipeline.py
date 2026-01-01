@@ -1,5 +1,6 @@
 import pandas as pd
-from data_preprocessing import drop_unnecessary_columns,handle_missing_values
+from sklearn.model_selection import train_test_split
+from data_preprocessing import ( drop_unnecessary_columns,handle_missing_values,encode_categorical_variables)
 
 
 def load_data(path):
@@ -7,6 +8,25 @@ def load_data(path):
     df = pd.read_csv(path)
 
     return df
+
+
+def split_features_target(df):
+
+    X = df.drop("Survived", axis=1)
+
+    y = df["Survived"]
+
+    return X, y
+
+def create_train_test_split(X, y):
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y,
+        test_size=0.2,
+        random_state=42
+    )
+
+    return X_train, X_test, y_train, y_test
 
 
 if __name__ == "__main__":
@@ -25,5 +45,6 @@ if __name__ == "__main__":
     data=drop_unnecessary_columns(data)
 
     data=handle_missing_values(data)
+    data=encode_categorical_variables(data)
 
     print(data.head())
