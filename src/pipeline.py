@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from data_preprocessing import ( drop_unnecessary_columns,handle_missing_values,encode_categorical_variables)
 from train_models import train_models
 from evaluate_models import evaluate_models
-
+from hyperparameter_tuning import tune_random_forest
 
 def load_data(path):
 
@@ -61,4 +61,7 @@ if __name__ == "__main__":
 
     results = evaluate_models(models, X_test, y_test)
 
-    print(results)
+    # print(results)
+    best_rf, best_params = tune_random_forest(X_train, y_train)
+
+    print("Best Random Forest Parameters:", best_params)
