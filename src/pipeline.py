@@ -1,6 +1,8 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from data_preprocessing import ( drop_unnecessary_columns,handle_missing_values,encode_categorical_variables)
+from train_models import train_models
+from evaluate_models import evaluate_models
 
 
 def load_data(path):
@@ -47,4 +49,16 @@ if __name__ == "__main__":
     data=handle_missing_values(data)
     data=encode_categorical_variables(data)
 
-    print(data.head())
+    # print(data.head())
+
+    X, y = split_features_target(data)
+
+    X_train, X_test, y_train, y_test = create_train_test_split(X, y)
+
+    # print("Training set shape:", X_train.shape)
+    # print("Testing set shape:", X_test.shape)
+    models = train_models(X_train, y_train)
+
+    results = evaluate_models(models, X_test, y_test)
+
+    print(results)
