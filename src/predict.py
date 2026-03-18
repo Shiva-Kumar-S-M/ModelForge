@@ -6,7 +6,7 @@ def preprocess_input(df):
     """
     Apply same preprocessing steps used during training
     """
-    import joblib
+    import json
 
     from data_preprocessing import (
         drop_unnecessary_columns,
@@ -20,7 +20,8 @@ def preprocess_input(df):
     df = feature_engineering(df)
     df = encode_categorical_variables(df)
 
-    train_columns = joblib.load("models/train_columns.pkl")
+    with open("models/train_columns.json", "r") as f:
+        train_columns = json.load(f)
 
     # Align columns
     df = df.reindex(columns=train_columns, fill_value=0)
