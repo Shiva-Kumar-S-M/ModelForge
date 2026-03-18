@@ -45,6 +45,7 @@ if __name__ == "__main__":
 
     # print("\nColumns:")
     # print(data.columns)
+    import joblib
 
     data=drop_unnecessary_columns(data)
 
@@ -55,6 +56,8 @@ if __name__ == "__main__":
     # print(data.head())
 
     X, y = split_features_target(data)
+
+    joblib.dump(X.columns, "models/train_columns.pkl")
 
     X_train, X_test, y_train, y_test = create_train_test_split(X, y)
 
