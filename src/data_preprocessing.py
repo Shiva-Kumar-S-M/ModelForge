@@ -2,7 +2,7 @@ import pandas as pd
 
 def drop_unnecessary_columns(df):
     columns_to_drop=['PassengerId', 'Name', 'Ticket', 'Cabin']
-    df=df.drop(columns=columns_to_drop)
+    df=df.drop(columns=columns_to_drop,errors='ignore')
     return df
 
 
