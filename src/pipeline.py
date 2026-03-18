@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from data_preprocessing import ( drop_unnecessary_columns,handle_missing_values,encode_categorical_variables,feature_engineering)
 from train_models import train_models
-from evaluate_models import evaluate_models
+from evaluate_models import evaluate_models,cross_validate_models
 from hyperparameter_tuning import tune_random_forest
 from model_saving import save_model
 from model_saving import load_model
@@ -63,6 +63,11 @@ if __name__ == "__main__":
     models = train_models(X_train, y_train)
 
     results = evaluate_models(models, X_test, y_test)
+
+    cv_results = cross_validate_models(models, X, y)
+
+    print("\nCross Validation Results:")
+    print(cv_results)
 
     # print(results)
     best_rf, best_params = tune_random_forest(X_train, y_train)
