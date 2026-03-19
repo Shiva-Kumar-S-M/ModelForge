@@ -16,5 +16,23 @@ def handle_missing_values(df):
 
 #Encoding categorical variables
 def encode_categorical_variables(df):
-    df=pd.get_dummies(df,columns=['Sex','Embarked'],drop_first=True)
+    df=pd.get_dummies(df,columns=['Sex','Embarked',"AgeGroup"],drop_first=True)
+    return df
+
+
+#Feature engineering 
+def feature_engineering(df):
+
+    # 1. Family Size
+    df["FamilySize"] = df["SibSp"] + df["Parch"] + 1
+
+    # 2. Is Alone
+    df["IsAlone"] = 1
+    df.loc[df["FamilySize"] > 1, "IsAlone"] = 0
+
+    # 3. Age Group
+    df["AgeGroup"] = pd.cut(df["Age"],
+                           bins=[0, 12, 20, 40, 60, 100],
+                           labels=["Child", "Teen", "Adult", "MidAge", "Senior"])
+
     return df

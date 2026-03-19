@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from data_preprocessing import ( drop_unnecessary_columns,handle_missing_values,encode_categorical_variables)
+from data_preprocessing import ( drop_unnecessary_columns,handle_missing_values,encode_categorical_variables,feature_engineering)
 from train_models import train_models
 from evaluate_models import evaluate_models
 from hyperparameter_tuning import tune_random_forest
@@ -49,6 +49,7 @@ if __name__ == "__main__":
     data=drop_unnecessary_columns(data)
 
     data=handle_missing_values(data)
+    data = feature_engineering(data)
     data=encode_categorical_variables(data)
 
     # print(data.head())
