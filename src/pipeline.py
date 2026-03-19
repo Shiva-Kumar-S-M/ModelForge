@@ -4,6 +4,8 @@ from data_preprocessing import ( drop_unnecessary_columns,handle_missing_values,
 from train_models import train_models
 from evaluate_models import evaluate_models
 from hyperparameter_tuning import tune_random_forest
+from model_saving import save_model
+from model_saving import load_model
 
 def load_data(path):
 
@@ -64,4 +66,14 @@ if __name__ == "__main__":
     # print(results)
     best_rf, best_params = tune_random_forest(X_train, y_train)
 
-    print("Best Random Forest Parameters:", best_params)
+    # print("Best Random Forest Parameters:", best_params)
+
+    save_model(best_rf, "models/best_model.pkl")
+
+    loaded_model = load_model("models/best_model.pkl")
+
+    sample = X_test.iloc[:5]
+
+    predictions = loaded_model.predict(sample)
+
+    print("Predictions:", predictions)
